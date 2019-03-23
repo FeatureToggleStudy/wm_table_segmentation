@@ -74,7 +74,7 @@ void TfTransformGetter::getTransform(const std::string& childFrame,
   if ( !_tfListener.waitForTransform(parentFrame,
                                      childFrame,
                                      ros::Time(0),
-                                     ros::Duration(1.5),
+                                     ros::Duration(4),
                                      ros::Duration(0.01),
                                      &errMsg)
        )

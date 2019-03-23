@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="rate"                      default="2"                               />
+  <arg name="rate"                      default="3"                               />
   <arg name="cloud"                     default="/head_xtion/depth/points"        />
   <arg name="frame"                     default="/base_link"                      />
   <arg name="passthrough_axis"          default="z"                               />

@@ -165,6 +165,21 @@ namespace pal {
 
   void SegmentPlane::cloudCallback(const sensor_msgs::PointCloud2ConstPtr& cloud)
   {
+
+
+    if(ros::param::has("/process_table_segmentation"))
+    {
+      bool rosParamProcess;
+      ros::param::get("/process_table_segmentation", rosParamProcess);
+
+      if(!rosParamProcess)
+      {
+        ROS_INFO("process_table_segmentation IS FALSE");
+        return;
+      }
+    }
+
+
     if ( (cloud->width * cloud->height) == 0)
       return;
 

@@ -104,6 +104,15 @@ void TfTransformGetter::transformCloudToFrame(const sensor_msgs::PointCloud2Cons
                transform);
 
   sensor_msgs::PointCloud2 cloudInNewFrame;
+
+    std::string errMsg;
+    _tfListener.waitForTransform(newFrameId,
+                                 cloud->header.frame_id,
+                                 ros::Time(0),
+                                 ros::Duration(4),
+                                 ros::Duration(0.01),
+                                 &errMsg);
+
   pcl_ros::transformPointCloud(newFrameId, transform, *cloud, cloudInNewFrame);
   pcl::fromROSMsg(cloudInNewFrame, *pointCloudInNewFrame);
 }

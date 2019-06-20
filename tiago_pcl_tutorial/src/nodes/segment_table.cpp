@@ -287,11 +287,28 @@ namespace pal {
                                  pcl::uint64_t& stamp,
                                  const std::string& frameId)
   {
-    if ( _planeCloudPub.getNumSubscribers() > 0 )
+    if ( _planeCloudPub.getNumSubscribers()> 0 )
     {
       planeCloud->header.stamp    = stamp;
       planeCloud->header.frame_id = frameId;
       _planeCloudPub.publish(planeCloud);
+    }
+
+    if ( _mainPlanePosePub.getNumSubscribers()> 0 )
+    {
+      geometry_msgs::PoseStamped pose;
+
+      pcl::PointXYZRGB min, max;
+      pcl::getMinMax3D<pcl::PointXYZRGB>(*planeCloud, min, max);
+
+      pose.pose.position.x = (min.x + max.x)/2;
+      pose.pose.position.y = (min.y + max.y)/2;
+      pose.pose.position.z = (min.z + max.z)/2;
+
+      pose.pose.orientation.w = 1;
+
+      _mainPlanePosePub.publish(pose);
+
     }
 
     if ( _nonPlaneCloudPub.getNumSubscribers() > 0 )
